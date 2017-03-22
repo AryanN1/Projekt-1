@@ -1,11 +1,44 @@
-var movies = ["The Matrix", "The Notebook", "Mr. Nobody", "The Lion King"];
+<!DOCTYPE html>
+<html lang="en">
 
-      // displayMovieInfo function re-renders the HTML to display the appropriate content
-      function displayMovieInfo() {
+<head>
+  <meta charset="utf-8">
+  <title>Favorite Movies</title>
+  <style type="text/css">
+    button,
+    div,
+    form,
+    input {
+      margin: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>Movie Search</h1>
+
+    <button id="movieGen">Click this to spin</button>
+
+    <div id="movies-view"></div>
+
+    <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript">
+
+      var count = 0;
+      // array of movies
+      var movies = ["Moonlight", "La La Land", "Arrival", "Fences", "Hacksaw Ridge", "Hell or High Water", "Hidden Figures", "Lion", "Manchester by the Sea", "Logan", "Kong Skull Island", "John Wick Chapter 2", "xXx Return of Xander Cage", "A Dog’s Purpose", "T2 Trainspotting", "  The Lego Batman Movie", "Rings", "Fifty Shades Darker", "Bitter Harvest", "In Dubious Battle"];
+
+      $("#movieGen").on("click", function() {
+
+        if(count === movies.length - 1) {
+          count=0;
+        };
+
 
         var movie = $(this).attr("data-name");
-  		var queryURL = "https://api.themoviedb.org/3/movie/550?api_key=c851eec6c9c2ba8782875cf67bf47e5a";
-        // var queryURL = "http://www.omdbapi.com/?t=" + movie + "&y=&plot=short&r=json";
+        var queryURL = "http://www.omdbapi.com/?t=" + movies[count] + "&y=&plot=short&r=json";
 
         // Creating an AJAX call for the specific movie button being clicked
         $.ajax({
@@ -53,9 +86,18 @@ var movies = ["The Matrix", "The Notebook", "Mr. Nobody", "The Lion King"];
           movieDiv.append(image);
 
           // Putting the entire movie above the previous movies
-          $("#movie").prepend(movieDiv);
+          $("#movies-view").empty().append(movieDiv);
+          count++;
+
         });
 
-      }
+      });
+          // if count === movies.lenth {
+          //   count = 0;
+          // };
 
-       $(document).on("click", ".movie", displayMovieInfo);
+    </script>
+  </div>
+</body>
+
+</html>
