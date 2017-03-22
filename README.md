@@ -24,4 +24,4 @@ Users will have the option to either “keep” or “re-spin” each of the rec
 APIs to be Used:
 -	GoogleMaps
 -	Omdb
--	Yelp-ish
+-	Google Places
