@@ -26,22 +26,44 @@
     
       var map;
       var infowindow;
+      var lat = '';
+      var lng = '';
+      var address = "90717";
+
+      function geoCodeMe() {
+        geocoder.geocode( { 'address': address}, function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            lat = results[0].geometry.location.lat();
+            lng = results[0].geometry.location.lng();
+
+            console.log(address);
+
+            var pyrmont = {lat: lat, lng: lng};
+
+            map = new google.maps.Map(document.getElementById('map'), {
+              center: pyrmont,
+              zoom: 15
+            });
+
+            infowindow = new google.maps.InfoWindow();
+            var service = new google.maps.places.PlacesService(map);
+            service.nearbySearch({
+              location: pyrmont,
+              radius: 500,
+              type: ['restaurant']
+            }, callback);
+          } else {
+            alert("Geocode was not successful for the following reason: " + status);
+          }
+        });
+      }
+
 
       function initMap() {
-        var pyrmont = {lat: -33.867, lng: 151.195};
+        geocoder = new google.maps.Geocoder();
 
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: pyrmont,
-          zoom: 15
-        });
+        geoCodeMe();
 
-        infowindow = new google.maps.InfoWindow();
-        var service = new google.maps.places.PlacesService(map);
-        service.nearbySearch({
-          location: pyrmont,
-          radius: 500,
-          type: ['store']
-        }, callback);
       }
 
       function callback(results, status) {

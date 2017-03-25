@@ -1,0 +1,92 @@
+<html>
+
+<head>
+   <title>Geocoding service</title>
+   <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+   <meta charset="utf-8">
+   <style>
+   /* Always set the map height explicitly to define the size of the div
+      * element that contains the map. */
+   
+   #map {
+       height: 100%;
+   }
+   /* Optional: Makes the sample page fill the window. */
+   
+   html,
+   body {
+       height: 100%;
+       margin: 0;
+       padding: 0;
+   }
+   
+   #floating-panel {
+       position: absolute;
+       top: 10px;
+       left: 25%;
+       z-index: 5;
+       background-color: #fff;
+       padding: 5px;
+       border: 1px solid #999;
+       text-align: center;
+       font-family: 'Roboto', 'sans-serif';
+       line-height: 30px;
+       padding-left: 10px;
+   }
+   </style>
+</head>
+
+<body>
+   <div id="floating-panel">
+       <input id="address" type="textbox" placeholder="Input Location Here">
+       <input id="submit" type="button" value="Geocode">
+   </div>
+   <div id="map"></div>
+   <script>
+   function initMap() {
+       var map = new google.maps.Map(document.getElementById('map'), {
+           zoom: 17,
+           center: {
+               lat: 10,
+               lng: 10
+           }
+       });
+       var geocoder = new google.maps.Geocoder();
+
+       document.getElementById('submit').addEventListener('click', function() {
+           geocodeAddress(geocoder, map);
+       });
+   }
+
+   function geocodeAddress(geocoder, resultsLocation) {
+       var address = document.getElementById('address').value;
+       geocoder.geocode({
+           'address': address
+       }, function(results, status) {
+           if (status === 'OK') {
+               resultsLocation.setCenter(results[0].geometry.location);
+               console.log(results[0].geometry.location.lat());
+               var locationObj = {
+                   lat: locService.lat(),
+                   lng: locService.lng()
+               };
+               if (status == google.maps.GeocoderStatus.OK) {
+                   map.setCenter(results[0].geometry.location);
+                   // search within radius of zip and return to map
+                   var request = {
+                       location: locationObj,
+                       radius: 500,
+                       query: "restaurant"
+                   };
+           } else {
+               alert('Geocode was not successful for the following reason: ' + status);
+           }
+       };
+   }
+ }
+   </script>
+   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0WfD7ctP__ppnoohyb9ITJUL2-4KIyik&libraries=places&callback=initMap">
+   </script>
+</body>
+
+</html>

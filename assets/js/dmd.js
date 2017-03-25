@@ -1,6 +1,6 @@
-
-$("#userName");
-$("#zipCode");
+// Store input in Firebase
+// $("#userName");
+// $("#zipCode");
 
   // Initialize Firebase
   var config = {
@@ -10,5 +10,5 @@ $("#zipCode");
     storageBucket: "projekt-1-f3617.appspot.com",
     messagingSenderId: "303213824340"
   };
-  
-firebase.initializeApp(config);
+
+  firebase.initializeApp(config);
