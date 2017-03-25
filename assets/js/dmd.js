@@ -1,6 +1,6 @@
-
-$("#userName");
-$("#zipCode");
+// Store input in Firebase
+// $("#userName");
+// $("#zipCode");
 
   // Initialize Firebase
   var config = {
@@ -11,3 +11,8 @@ $("#zipCode");
     messagingSenderId: "303213824340"
   };
   firebase.initializeApp(config);
+
+ $("#submitModal").on("click", function() {
+ $("#movieGen").html("<center><button>Click this to spin</button></center>");
+ initMap();
+ })

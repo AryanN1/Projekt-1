@@ -1,72 +1,53 @@
-<!DOCTYPE html>
-<html>
- <head>
-   <title>Dinner Search</title>
-   <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-   <meta charset="utf-8">
-   <style>
-     /* Always set the map height explicitly to define the size of the div
-      * element that contains the map. */
-     #map {
-       height: 100%;
-     }
-     /* Optional: Makes the sample page fill the window. */
-     html, body {
-       height: 100%;
-       margin: 0;
-       padding: 0;
-     }
-     #floating-panel {
-       position: absolute;
-       top: 10px;
-       left: 25%;
-       z-index: 5;
-       background-color: #fff;
-       padding: 5px;
-       border: 1px solid #999;
-       text-align: center;
-       font-family: 'Roboto','sans-serif';
-       line-height: 30px;
-       padding-left: 10px;
-     }
-   </style>
- </head>
- <body>
-   <div id="floating-panel">
-     <input id="address" type="textbox" value="Zipcode">
-     <input id="submit" type="button" value="Submit">
-   </div>
-   <div id="map"></div>
-   <script>
-     function initMap() {
-       var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 34.0620, lng: -118.4455},
-          zoom: 18
-       });
-       var geocoder = new google.maps.Geocoder();
+    var lat = '';
+    var lng = '';
+    var address = {zipcode};
+    geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+         lat = results[0].geometry.location.lat();
+         lng = results[0].geometry.location.lng();
+        };
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
 
-       document.getElementById('submit').addEventListener('click', function() {
-         geocodeAddress(geocoder, map);
-       });
-     }
+var map;
+var infoWindow;
 
-     function geocodeAddress(geocoder, resultsMap) {
-       var address = document.getElementById('address').value;
-       geocoder.geocode({'address': address}, function(results, status) {
-         if (status === 'OK') {
-           resultsMap.setCenter(results[0].geometry.location);
-           var marker = new google.maps.Marker({
-             map: resultsMap,
-             position: results[0].geometry.location
-           });
-         } else {
-           alert('Geocode was not successful for the following reason: ' + status);
+function initMap() {
+  var mapLocation = {lat: 34.0635, lng: -118.4453};
+
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: mapLocation,
+    zoom: 17
+  });
+
+  infoWindow = new google.maps.infoWindow();
+  var service = new google.maps.places.PlacesService(map);
+  service.nearbySearch({
+    location: mapLocation,
+    radius: 500,
+    type: ['restaurant']
+  }, callback);
+}
+
+    function callback(results, status) {
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
+            for (var i = 0; i < results.length; i++) {
+               createMarker(results[i]);
+            }
          }
-       });
-     }
-   </script>
-   <script async defer
-   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBOvLvUWU-_rQ1MpLYVQCcZ1byL-Prp1po&callback=initMap">
-   </script>
- </body>
-</html>
+      }
+        
+    function createMarker(place) {
+            var placeLoc = place.geometry.location;
+            var marker = new google.maps.Marker({
+            map: map,
+            position: place.geometry.location,
+          });
+            
+            google.maps.event.addListener(marker, 'click', function() {
+            infoWindow.setContent(place.name);
+            infoWindow.open(map, this);
+            });
+

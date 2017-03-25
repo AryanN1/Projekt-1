@@ -9,3 +9,37 @@ body {
 .secondaryColor{
 	color: #FF0000;  
 }
+
+.movie {
+	background-color: skyblue;
+	text-align: center;
+	font-family: Bangers;
+	padding: 20px;
+	font-size: 20px;
+	border-radius: 12px;
+}
+
+.movieButton {
+	background-color: skyblue;
+	border-radius: 25px;
+	border-color: #f00000;
+	border-width: 5px;
+	color: #f00000;
+}
+
+.titleButton {
+	background-color: #f0f0f0;
+	border-radius: 25px;
+	border-color: goldenrod;
+	font-family: Aldrich;
+	font-weight: 800;
+	border-width: 5px;
+	color: #f00000;
+	font-size: 20px;
+	padding: 20px;
+	margin: 20px;
+}
+
+#map {
+	height: 100%;
+}
