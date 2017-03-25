@@ -92,9 +92,6 @@
         });
 
       });
-          // if count === movies.lenth {
-          //   count = 0;
-          // };
 
     </script>
   </div>
