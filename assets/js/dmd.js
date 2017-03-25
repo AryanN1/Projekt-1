@@ -10,9 +10,5 @@
     storageBucket: "projekt-1-f3617.appspot.com",
     messagingSenderId: "303213824340"
   };
-  firebase.initializeApp(config);
 
- $("#submitModal").on("click", function() {
- $("#movieGen").html("<center><button>Click this to spin</button></center>");
- initMap();
- })
+  firebase.initializeApp(config);
