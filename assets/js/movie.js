@@ -1,35 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="utf-8">
-  <title>Favorite Movies</title>
-  <style type="text/css">
-    button,
-    div,
-    form,
-    input {
-      margin: 10px;
-    }
-  </style>
-</head>
-
-<body>
-
-  <div class="container">
-    <h1>Movie Search</h1>
-
-    <button id="movieGen">Click this to spin</button>
-
-    <div id="movies-view"></div>
-
-    <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
-    <script type="text/javascript">
 
       var count = 0;
       // array of movies
       var movies = ["Moonlight", "La La Land", "Arrival", "Fences", "Hacksaw Ridge", "Hell or High Water", "Hidden Figures", "Lion", "Manchester by the Sea", "Logan", "Kong Skull Island", "John Wick Chapter 2", "xXx Return of Xander Cage", "A Dog’s Purpose", "T2 Trainspotting", "  The Lego Batman Movie", "Rings", "Fifty Shades Darker", "Bitter Harvest", "In Dubious Battle"];
 
+  
       $("#movieGen").on("click", function() {
 
         if(count === movies.length - 1) {
@@ -92,12 +66,4 @@
         });
 
       });
-          // if count === movies.lenth {
-          //   count = 0;
-          // };
-
-    </script>
-  </div>
-</body>
-
-</html>
+ 
